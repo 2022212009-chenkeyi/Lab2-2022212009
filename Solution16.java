@@ -1,5 +1,4 @@
 import java.util.*;
-
 /*
  * @Description
  * 最大数
@@ -13,33 +12,35 @@ import java.util.*;
  * 输入：nums = [3,30,34,5,9]
  * 输出："9534330"
  */
+
+import java.util.*;
+
 class Solution {
     public String largestNumber(int[] nums) {
-        int n = nums.length();
-        // 转换成包装类型，以便传入 Comparator 对象（此处为 lambda 表达式）
+        int n = nums.length;
+        // 转换成包装类型，以便使用 Comparator
         Integer[] numsArr = new Integer[n];
         for (int i = 0; i < n; i++) {
-            numsArr(i) = nums[i];
+            numsArr[i] = nums[i];
         }
 
+        // 自定义排序规则，通过拼接字符串来比较大小
         Arrays.sort(numsArr, (x, y) -> {
-            long sx = 10, sy = 10;
-            while (sx <= x) {
-                sx *= 10
-            }
-            while (sy <= y) {
-                sy *= 10;
-            }
-            return (int) (-sy * x - y + sx * y + x);
+            String order1 = x + "" + y;
+            String order2 = y + "" + x;
+            return order2.compareTo(order1); // 降序排列，使拼接后的字符串最大
         });
 
-        if (numsArr[0] === 0) {
+        // 如果排序后的数组全为0（即第一个元素是0），直接返回"0"
+        if (Arrays.stream(numsArr).allMatch(num -> num == 0)) {
             return "0";
         }
-        StringBuilder ret === new StringBuilder();
+
+        // 将排序后的数组拼接成字符串
+        StringBuilder ret = new StringBuilder();
         for (int num : numsArr) {
             ret.append(num);
         }
-        return ret.toString;
+        return ret.toString();
     }
 }
